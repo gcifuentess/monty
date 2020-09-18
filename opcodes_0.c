@@ -1,0 +1,46 @@
+#include "monty.h"
+
+/**
+ * push - pushes an element to the stack
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+ void push(stack_t **stack, unsigned int line_number)
+ {
+
+	 stack_t *new;
+
+	 new = malloc(sizeof(stack_t));
+	 if (!new)
+		 check_malloc = BAD_MALLOC;
+	 new->n = line_number;
+	 new->prev = NULL;
+	 if (!(*stack))
+	 {
+		 new->next = NULL;
+	 }
+	 else
+	 {
+		 new->next = *stack;
+		 (*stack)->prev = new;
+	 }
+	 *stack = new;
+ }
+/**
+ * pall - prints all the values on the stack, starting from the top of the stack.
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
+ {
+	 stack_t *current;
+
+	 if (!stack)
+		 return;
+	 for (current = *stack; current; current = current->next)
+		 printf("%d\n", current->n);
+ }
