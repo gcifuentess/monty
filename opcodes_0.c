@@ -76,3 +76,19 @@ void pop(stack_t **stack, __attribute__((unused))unsigned int line_number)
 	free(*stack);
 	*stack = temp;
 }
+/**
+ * swap - swaps the top two elements of the stack.
+ *
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void swap(stack_t **stack, __attribute__((unused))unsigned int line_number)
+{
+	unsigned int temp;
+
+	temp = (*stack)->n;
+	(*stack)->n = ((*stack)->next)->n;
+	((*stack)->next)->n = temp;
+}

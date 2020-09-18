@@ -5,7 +5,7 @@
  * @program_data: structure with the data of the program
  * @opcodes: array with the opcodes function pointers
  *
- * Return: EXIT_SUCCESS the file was openned EXIT_FAILURE otherwise
+ * Return: EXIT_SUCCESS or EXIT_FAILURE otherwise
  */
 int opcode_exec(data_t *program_data, instruction_t opcodes[])
 {
@@ -22,20 +22,13 @@ int opcode_exec(data_t *program_data, instruction_t opcodes[])
 		/*compares the readed opcode with those in opcodes structure*/
 		if (strcmp(program_data->opcode, opcodes[i].opcode) == 0)
 		{
-			if (strcmp(program_data->opcode, "push") == 0
-			    && program_data->check_arg == BAD_ARG)
-				return (print_error(program_data, ERROR_PUSH));
-
-			if (strcmp(program_data->opcode, "pint") == 0
-			    && !(program_data->stack))
-				return (print_error(program_data, ERROR_PINT));
-
-			if (strcmp(program_data->opcode, "pop") == 0
-			    && !(program_data->stack))
-				return (print_error(program_data, ERROR_POP));
+			/*check for errors in the opcodes*/
+			if (opcode_error(program_data) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 
 			/*excecute the opcode*/
 			opcodes[i].f(&(program_data->stack), line_number);
+
 			/*free the readed line*/
 			free_all(program_data, FREE_LINE);
 
@@ -91,4 +84,33 @@ void free_all(data_t *program_data, int free_case)
 	{
 		free(program_data);
 	}
+}
+
+/**
+ * opcode_error - checks if there is an error with the opcode
+ * @program_data: structure with the data of the program
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int opcode_error(data_t *program_data)
+{
+	if (strcmp(program_data->opcode, "push") == 0
+	    && program_data->check_arg == BAD_ARG)
+		return (print_error(program_data, ERROR_PUSH));
+
+	else if (strcmp(program_data->opcode, "pint") == 0
+	    && !(program_data->stack))
+		return (print_error(program_data, ERROR_PINT));
+
+	else if (strcmp(program_data->opcode, "pop") == 0
+	    && !(program_data->stack))
+		return (print_error(program_data, ERROR_POP));
+
+	else if (strcmp(program_data->opcode, "swap") == 0
+		 && !(program_data->stack)
+		 && !((program_data->stack)->next))
+		return (print_error(program_data, ERROR_SWAP));
+
+
+	return (EXIT_SUCCESS);
 }

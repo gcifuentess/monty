@@ -8,7 +8,7 @@ int check_malloc = 0;
  * initialize - initializes the data of the program
  * @program_data: the double pointer to the structure
  *
- * Return: the pointer to the now initialized structur
+ * Return: the pointer to the now initialized structure
  */
 int initialize(data_t **program_data)
 {
@@ -44,39 +44,34 @@ int initialize(data_t **program_data)
 int print_error(data_t *program_data, int n_error)
 {
 	if (n_error == BAD_MALLOC && !program_data)
-	{
 		fprintf(stderr, "Error: malloc failed\n");
-	}
+
 	else if (n_error == BAD_ARG)
-	{
 		fprintf(stderr, "USAGE: monty file\n");
-	}
+
 	else if (n_error == ERROR_FILE)
-	{
 		fprintf(stderr, "Error: Can't open file %s\n"
 			, program_data->av_1);
-	}
+
 	else if (n_error == ERROR_OPCODE)
-	{
 		fprintf(stderr, "L%d: usage: unknown instruction %s\n"
 			, program_data->count, program_data->opcode);
-	}
+
 	else if (n_error == ERROR_PUSH)
-	{
 		fprintf(stderr, "L%d: usage: push integer\n"
 			, program_data->count);
-	}
+
 	else if (n_error == ERROR_PINT)
-	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n"
 			, program_data->count);
-	}
+
 	else if (n_error == ERROR_POP)
-	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n"
 			, program_data->count);
-	}
 
+	else if (n_error == ERROR_SWAP)
+		fprintf(stderr, "L%d: can't swap, stack too short\n"
+			, program_data->count);
 
 	return (EXIT_FAILURE);
 }
@@ -104,7 +99,7 @@ int open_file(data_t *program_data)
  * read_line - opens te file from argv[1]
  * @program_data: structure with the data of the program
  *
- * Return: EXIT_SUCCESS the file was openned EXIT_FAILURE otherwise
+ * Return: EXIT_SUCCESS or EXIT_FAILURE otherwise
  */
 int read_line(data_t *program_data)
 {
@@ -148,7 +143,7 @@ int read_line(data_t *program_data)
  * check_to_exec - checks if the received line is ok to be executed
  * @program_data: structure with the data of the program
  *
- * Return: EXIT_SUCCESS the file was openned EXIT_FAILURE otherwise
+ * Return: EXIT_SUCCESS or EXIT_FAILURE otherwise
  */
 int check_to_exec(data_t *program_data)
 {
@@ -162,6 +157,7 @@ int check_to_exec(data_t *program_data)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
 

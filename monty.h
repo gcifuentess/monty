@@ -15,6 +15,7 @@
 #define ERROR_PUSH 5
 #define ERROR_PINT 6
 #define ERROR_POP 7
+#define ERROR_SWAP 8
 
 #define STACK_M 0
 #define QUEUE_M 1
@@ -101,11 +102,13 @@ int read_line(data_t *program_data);
 int check_to_exec(data_t *program_data);
 int opcode_exec(data_t *program_data, instruction_t opcodes[]);
 void free_all(data_t *program_data, int free_case);
+int opcode_error(data_t *program_data);
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
 
 /*----------------*/
 
