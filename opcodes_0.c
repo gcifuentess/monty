@@ -59,3 +59,20 @@ void pint(stack_t **stack, __attribute__((unused))unsigned int line_number)
 {
 	printf("%d\n", (*stack)->n);
 }
+
+/**
+ * pop - removes the top element of the stack.
+ *
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void pop(stack_t **stack, __attribute__((unused))unsigned int line_number)
+{
+	stack_t *temp;
+
+	temp = (*stack)->next;
+	free(*stack);
+	*stack = temp;
+}

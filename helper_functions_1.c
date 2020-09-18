@@ -30,9 +30,12 @@ int opcode_exec(data_t *program_data, instruction_t opcodes[])
 			    && !(program_data->stack))
 				return (print_error(program_data, ERROR_PINT));
 
+			if (strcmp(program_data->opcode, "pop") == 0
+			    && !(program_data->stack))
+				return (print_error(program_data, ERROR_POP));
+
 			/*excecute the opcode*/
 			opcodes[i].f(&(program_data->stack), line_number);
-
 			/*free the readed line*/
 			free_all(program_data, FREE_LINE);
 
@@ -43,7 +46,6 @@ int opcode_exec(data_t *program_data, instruction_t opcodes[])
 				return (print_error(program_data, BAD_MALLOC));
 		}
 	}
-
 	return (print_error(program_data, ERROR_OPCODE));
 }
 

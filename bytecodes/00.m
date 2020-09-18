@@ -7,3 +7,5 @@ push 15
 pint
 push 2
 pall
+pop
+pall
