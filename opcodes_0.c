@@ -45,3 +45,17 @@ void pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
 	for (current = *stack; current; current = current->next)
 		printf("%d\n", current->n);
 }
+
+/**
+ * pint - prints the value at the top of the stack
+ *         , followed by a new line.
+ *
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void pint(stack_t **stack, __attribute__((unused))unsigned int line_number)
+{
+	printf("%d\n", (*stack)->n);
+}

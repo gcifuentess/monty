@@ -13,6 +13,7 @@
 #define ERROR_FILE 3
 #define ERROR_OPCODE 4
 #define ERROR_PUSH 5
+#define ERROR_PINT 6
 
 #define STACK_M 0
 #define QUEUE_M 1
@@ -102,6 +103,7 @@ void free_all(data_t *program_data, int free_case);
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
 
 /*----------------*/
 

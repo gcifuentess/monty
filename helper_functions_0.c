@@ -66,6 +66,11 @@ int print_error(data_t *program_data, int n_error)
 		fprintf(stderr, "L%d: usage: push integer\n"
 			, program_data->count);
 	}
+	else if (n_error == ERROR_PINT)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n"
+			, program_data->count);
+	}
 
 	return (EXIT_FAILURE);
 }
@@ -149,6 +154,7 @@ int check_to_exec(data_t *program_data)
 	instruction_t opcodes[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
 

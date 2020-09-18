@@ -26,6 +26,10 @@ int opcode_exec(data_t *program_data, instruction_t opcodes[])
 			    && program_data->check_arg == BAD_ARG)
 				return (print_error(program_data, ERROR_PUSH));
 
+			if (strcmp(program_data->opcode, "pint") == 0
+			    && !(program_data->stack))
+				return (print_error(program_data, ERROR_PINT));
+
 			/*excecute the opcode*/
 			opcodes[i].f(&(program_data->stack), line_number);
 
