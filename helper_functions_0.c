@@ -21,6 +21,8 @@ int initialize(data_t **program_data)
 	(*program_data)->count = 0;
 	(*program_data)->av_1 = NULL;
 	(*program_data)->stream = NULL;
+	(*program_data)->line = NULL;
+	(*program_data)->tokens = NULL;
 	(*program_data)->opcode = NULL;
 	(*program_data)->opc_arg = NULL;
 	(*program_data)->check_arg = GOOD_ARG;
@@ -65,7 +67,6 @@ int print_error(data_t *program_data, int n_error)
 			, program_data->count);
 	}
 
-
 	return (EXIT_FAILURE);
 }
 
@@ -98,7 +99,7 @@ int read_line(data_t *program_data)
 {
 	char *line;
 	size_t len;
-	char *tokens[3];
+	char *tokens[2] = {NULL, NULL};
 	int i, retget, exit_c;
 
 	line = NULL;
@@ -110,15 +111,17 @@ int read_line(data_t *program_data)
 	{
 		program_data->count += 1;/*counting the number of lines*/
 		retget = getline(&line, &len, program_data->stream);
+		program_data->line = line;
 		if (retget == EOF)
 			return (EXIT_SUCCESS);
 
-		for (i = 0; ; i++, line = NULL)
+		for (i = 0; i < 2; i++, line = NULL)
 		{
 			tokens[i] = strtok(line, " ");
 			if (!tokens[i])
 				break;
 		}
+		program_data->tokens = tokens;
 		program_data->opcode = tokens[0];
 		program_data->opc_arg = tokens[1];
 

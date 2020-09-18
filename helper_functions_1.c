@@ -25,12 +25,64 @@ int opcode_exec(data_t *program_data, instruction_t opcodes[])
 			if (strcmp(program_data->opcode, "push") == 0
 			      && program_data->check_arg == BAD_ARG)
 				return (print_error(program_data, ERROR_PUSH));
+
+			/*excecute the opcode*/
 			opcodes[i].f(&(program_data->stack), line_number);
+
+			/*free the readed line*/
+			free_all(program_data, FREE_LINE);
+
+			/*check if there were errors with malloc*/
 			if (check_malloc == GOOD_MALLOC)
 				return (EXIT_SUCCESS);
 			else
 				return (print_error(program_data, BAD_MALLOC));
 		}
 	}
+
 	return (print_error(program_data, ERROR_OPCODE));
+}
+
+/**
+ * opcode_exec - executes the opcode
+ * @program_data: structure with the data of the program
+ * @free_case: int number with the case to free
+ *
+ * Return: void
+ */
+void free_all(data_t *program_data, int free_case)
+{
+	stack_t *head, *next;
+
+	head = program_data->stack;
+
+	if (free_case == FREE_ALL)
+	{
+		/*free stack*/
+		while (head)
+		{
+			next = head->next;
+			free(head);
+			head = next;
+		}
+
+		/*free line*/
+		free(program_data->line);
+
+		/*close file*/
+		fclose(program_data->stream);
+
+		/*free program_data*/
+		free(program_data);
+	}
+	else if (free_case == FREE_LINE)
+	{
+		/*free line*/
+		free(program_data->line);
+
+	}
+	else if (free_case == FREE_PROGRAM_DATA)
+	{
+		free(program_data);
+	}
 }

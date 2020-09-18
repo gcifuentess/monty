@@ -20,6 +20,11 @@
 #define GOOD_MALLOC 0
 #define GOOD_ARG 0
 
+#define FREE_ALL 0
+#define FREE_LINE 1
+#define FREE_PROGRAM_DATA 2
+
+/*----------------*/
 
 /*-----GLOBAL_VARS-----*/
 
@@ -74,6 +79,8 @@ typedef struct data_s
 	int count;
 	char *av_1;
 	FILE *stream;
+        char *line;
+        char **tokens;
 	char *opcode;
 	char *opc_arg;
 	int check_arg;
@@ -91,6 +98,7 @@ int open_file(data_t *program_data);
 int read_line(data_t *program_data);
 int check_to_exec(data_t *program_data);
 int opcode_exec(data_t *program_data, instruction_t opcodes[]);
+void free_all(data_t *program_data, int free_case);
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);

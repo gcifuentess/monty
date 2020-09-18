@@ -21,10 +21,17 @@ int main(int argc, char **argv)
 
 	program_data->av_1 = argv[1];
 	if (open_file(program_data) ==  EXIT_FAILURE)
+	{
+		free_all(program_data, FREE_PROGRAM_DATA);
 		exit(EXIT_FAILURE);
+	}
 
 	if (read_line(program_data) == EXIT_FAILURE)
+	{
+		free_all(program_data, FREE_ALL);
 		exit(EXIT_FAILURE);
+	}
 
+	free_all(program_data, FREE_ALL);
 	return (EXIT_SUCCESS);
 }
