@@ -23,7 +23,7 @@ int opcode_exec(data_t *program_data, instruction_t opcodes[])
 		if (strcmp(program_data->opcode, opcodes[i].opcode) == 0)
 		{
 			if (strcmp(program_data->opcode, "push") == 0
-			      && program_data->check_arg == BAD_ARG)
+			    && program_data->check_arg == BAD_ARG)
 				return (print_error(program_data, ERROR_PUSH));
 
 			/*excecute the opcode*/

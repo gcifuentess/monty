@@ -14,7 +14,7 @@ int initialize(data_t **program_data)
 {
 
 	*program_data = malloc(sizeof(data_t));
-	if(!program_data)
+	if (!program_data)
 		return (print_error(*program_data, BAD_MALLOC));
 
 	/*initialize program_data*/
@@ -127,7 +127,7 @@ int read_line(data_t *program_data)
 
 		exit_c = check_to_exec(program_data);
 		if (exit_c == EXIT_FAILURE)
-			return(exit_c);
+			return (exit_c);
 	}
 
 	return (exit_c);
