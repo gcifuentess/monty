@@ -1,37 +1,29 @@
 #include "monty.h"
 
+/*Global Variables definition*/
+data_t *program_data = NULL;
+
 /**
- * main - Interpreter for Monty code
+ * main - Monty Code Interpreter
  * @argc: number of arguments the program receives
  * @argv: array with the received arguments
  *
- * Return: EXIT_SUCCES or EXIT_FAILURE
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
  */
 int main(int argc, char **argv)
 {
-	data_t *program_data;
-
-	program_data = NULL;
-
 	if (argc > 2 || argc <= 1)
-		exit(print_error(program_data, BAD_ARG));
+		print_error(BAD_ARG, BAD_ARG);
 
-	if (initialize(&program_data) == EXIT_FAILURE)
-		exit(EXIT_FAILURE);
+	initialize();
 
 	program_data->av_1 = argv[1];
-	if (open_file(program_data) ==  EXIT_FAILURE)
-	{
-		free_all(program_data, FREE_PROGRAM_DATA);
-		exit(EXIT_FAILURE);
-	}
 
-	if (read_line(program_data) == EXIT_FAILURE)
-	{
-		free_all(program_data, FREE_ALL);
-		exit(EXIT_FAILURE);
-	}
+	open_file();
 
-	free_all(program_data, FREE_ALL);
+	read_line();
+
+	free_all(FREE_ALL);
+
 	return (EXIT_SUCCESS);
 }

@@ -2,54 +2,37 @@
 
 /**
  * opcode_exec - executes the opcode
- * @program_data: structure with the data of the program
  * @opcodes: array with the opcodes function pointers
  *
- * Return: EXIT_SUCCESS or EXIT_FAILURE otherwise
+ * Return: Void
  */
-int opcode_exec(data_t *program_data, instruction_t opcodes[])
+void opcode_exec(instruction_t opcodes[])
 {
 	int i;
 	unsigned int line_number;
 
-	line_number = 0;
-	if (program_data->opc_arg)
-		line_number = atoi(program_data->opc_arg);
-
-	/*checks and runs if is an opcode that needs arguments*/
+	line_number = program_data->count;
+	/*checks and runs the opcode*/
 	for (i = 0; opcodes[i].opcode; i++)
 	{
 		/*compares the readed opcode with those in opcodes structure*/
 		if (strcmp(program_data->opcode, opcodes[i].opcode) == 0)
 		{
-			/*check for errors in the opcodes*/
-			if (opcode_error(program_data) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-
 			/*excecute the opcode*/
 			opcodes[i].f(&(program_data->stack), line_number);
-
-			/*free the readed line*/
-			free_all(program_data, FREE_LINE);
-
-			/*check if there were errors with malloc*/
-			if (check_malloc == GOOD_MALLOC)
-				return (EXIT_SUCCESS);
-			else
-				return (print_error(program_data, BAD_MALLOC));
+			return;
 		}
 	}
-	return (print_error(program_data, ERROR_OPCODE));
+	print_error(ERROR_OPCODE, line_number);
 }
 
 /**
  * opcode_exec - executes the opcode
- * @program_data: structure with the data of the program
  * @free_case: int number with the case to free
  *
  * Return: void
  */
-void free_all(data_t *program_data, int free_case)
+void free_all(int free_case)
 {
 	stack_t *head, *next;
 
@@ -85,32 +68,81 @@ void free_all(data_t *program_data, int free_case)
 		free(program_data);
 	}
 }
+/**
+ * print_error_a - prints error messages
+ * @n_error: int error code
+ * @line_number: the number of the line where the error took place
+ *
+ * Return: ERROR_FOUND or ERROR_NOT_FOUND
+ */
+int print_error_a(int n_error, unsigned int line_number)
+{
+	if (n_error == BAD_MALLOC && !program_data)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+	}
+	else if (n_error == BAD_ARG)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		free_all(FREE_PROGRAM_DATA);
+	}
+	else if (n_error == ERROR_FILE)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n"
+			, program_data->av_1);
+		free_all(FREE_PROGRAM_DATA);
+	}
+	else if (n_error == ERROR_OPCODE)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n"
+			, program_data->count, program_data->opcode);
+		free_all(FREE_ALL);
+	}
+	else if (n_error == ERROR_PUSH)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n"
+			, line_number);
+		free_all(FREE_ALL);
+	}
+	else if (n_error == ERROR_PINT)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n"
+			, line_number);
+		free_all(FREE_ALL);
+	}
+	else
+	{
+		return (ERROR_NOT_FOUND);
+	}
+
+	return (ERROR_FOUND);
+}
 
 /**
- * opcode_error - checks if there is an error with the opcode
- * @program_data: structure with the data of the program
+ * print_error_b - prints error messages for the rest of opcodes
+ * @n_error: int error code
+ * @line_number: the number of the line where the error took place
  *
- * Return: EXIT_SUCCESS or EXIT_FAILURE
+ * Return: ERROR_FOUND or ERROR_NOT_FOUND
  */
-int opcode_error(data_t *program_data)
+int print_error_b(int n_error, unsigned int line_number)
 {
-	if (strcmp(program_data->opcode, "push") == 0
-	    && program_data->check_arg == BAD_ARG)
-		return (print_error(program_data, ERROR_PUSH));
 
-	else if (strcmp(program_data->opcode, "pint") == 0
-	    && !(program_data->stack))
-		return (print_error(program_data, ERROR_PINT));
+	if (n_error == ERROR_POP)
+		fprintf(stderr, "L%d: can't pop an empty stack\n"
+			, line_number);
 
-	else if (strcmp(program_data->opcode, "pop") == 0
-	    && !(program_data->stack))
-		return (print_error(program_data, ERROR_POP));
+	else if (n_error == ERROR_SWAP)
+		fprintf(stderr, "L%d: can't swap, stack too short\n"
+			, line_number);
 
-	else if (strcmp(program_data->opcode, "swap") == 0
-		 && !(program_data->stack)
-		 && !((program_data->stack)->next))
-		return (print_error(program_data, ERROR_SWAP));
+	else if (n_error == ERROR_ADD)
+		fprintf(stderr, "L%d: can't add, stack too short\n"
+			, line_number);
+	else
+		return (ERROR_NOT_FOUND);
 
+	free_all(FREE_ALL);
 
-	return (EXIT_SUCCESS);
+	return (ERROR_FOUND);
 }

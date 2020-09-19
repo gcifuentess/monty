@@ -10,11 +10,33 @@
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new;
+	char *arg;
+	int i, num;
+	const char *integers = "-0123456789";
+
+	arg = strtok(NULL, " \t");
+	if (arg)
+	{
+		for (i = 0; arg[i]; i++)
+		{
+			if (strchr(integers, arg[i]))
+				break;
+		}
+		if (arg[i] == '\n')
+		{
+			print_error(ERROR_PUSH, line_number);
+		}
+	}
+	else
+	{
+		print_error(ERROR_PUSH, line_number);
+	}
+	num = atoi(arg);
 
 	new = malloc(sizeof(stack_t));
 	if (!new)
-		check_malloc = BAD_MALLOC;
-	new->n = line_number;
+		print_error(BAD_MALLOC, line_number);
+	new->n = num;
 	new->prev = NULL;
 	if (!(*stack))
 	{
@@ -40,8 +62,6 @@ void pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
 {
 	stack_t *current;
 
-	if (!stack)
-		return;
 	for (current = *stack; current; current = current->next)
 		printf("%d\n", current->n);
 }
@@ -55,8 +75,11 @@ void pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
  *
  * Return: Void
  */
-void pint(stack_t **stack, __attribute__((unused))unsigned int line_number)
+void pint(stack_t **stack, unsigned int line_number)
 {
+	if (!(*stack))
+		print_error(ERROR_PINT, line_number);
+
 	printf("%d\n", (*stack)->n);
 }
 
@@ -68,14 +91,20 @@ void pint(stack_t **stack, __attribute__((unused))unsigned int line_number)
  *
  * Return: Void
  */
-void pop(stack_t **stack, __attribute__((unused))unsigned int line_number)
+void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
+	if (!(*stack))
+		print_error(ERROR_POP, line_number);
+
 	temp = (*stack)->next;
+	if (temp)
+		temp->prev = NULL;
 	free(*stack);
 	*stack = temp;
 }
+
 /**
  * swap - swaps the top two elements of the stack.
  *
@@ -84,9 +113,12 @@ void pop(stack_t **stack, __attribute__((unused))unsigned int line_number)
  *
  * Return: Void
  */
-void swap(stack_t **stack, __attribute__((unused))unsigned int line_number)
+void swap(stack_t **stack, unsigned int line_number)
 {
 	unsigned int temp;
+
+	if (!(*stack) && !(*stack)->next)
+		print_error(ERROR_SWAP, line_number);
 
 	temp = (*stack)->n;
 	(*stack)->n = ((*stack)->next)->n;

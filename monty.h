@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 /*-----MACROS-----*/
 
@@ -16,23 +15,17 @@
 #define ERROR_PINT 6
 #define ERROR_POP 7
 #define ERROR_SWAP 8
+#define ERROR_ADD 9
 
 #define STACK_M 0
 #define QUEUE_M 1
-
-#define GOOD_MALLOC 0
-#define GOOD_ARG 0
 
 #define FREE_ALL 0
 #define FREE_LINE 1
 #define FREE_PROGRAM_DATA 2
 
-/*----------------*/
-
-/*-----GLOBAL_VARS-----*/
-
-extern int data_format;
-extern int check_malloc;
+#define ERROR_FOUND 0
+#define ERROR_NOT_FOUND 1
 
 /*----------------*/
 
@@ -83,11 +76,9 @@ typedef struct data_s
 	char *av_1;
 	FILE *stream;
         char *line;
-        char **tokens;
 	char *opcode;
-	char *opc_arg;
-	int check_arg;
 	stack_t *stack;
+	int data_format;
 
 } data_t;
 
@@ -95,22 +86,29 @@ typedef struct data_s
 
 /*-----FUNCTIONS-----*/
 
-int initialize(data_t **program_data);
-int print_error(data_t *program_data, int n_error);
-int open_file(data_t *program_data);
-int read_line(data_t *program_data);
-int check_to_exec(data_t *program_data);
-int opcode_exec(data_t *program_data, instruction_t opcodes[]);
-void free_all(data_t *program_data, int free_case);
-int opcode_error(data_t *program_data);
+void initialize(void);
+void print_error(int n_error, unsigned int line_number);
+int print_error_a(int n_error, unsigned int line_number);
+int print_error_b(int n_error, unsigned int line_number);
+void open_file(void);
+void read_line(void);
+void check_to_exec(void);
+void opcode_exec(instruction_t opcodes[]);
+void free_all(int free_case);
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
 
 /*----------------*/
 
+/*-----GLOBAL_VARS-----*/
+
+extern data_t *program_data;
+
+/*----------------*/
 
 #endif /*MONTY_H*/
