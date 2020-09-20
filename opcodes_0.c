@@ -12,19 +12,17 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new;
 	char *arg;
 	int i, num;
-	const char *integers = "-0123456789";
+	const char *integers = "0123456789";
 
 	arg = strtok(NULL, " \t");
 	if (arg)
 	{
-		for (i = 0; arg[i]; i++)
+		for (i = 0; arg[i + 1]; i++)
 		{
-			if (strchr(integers, arg[i]))
-				break;
-		}
-		if (arg[i] == '\n')
-		{
-			print_error(ERROR_PUSH, line_number);
+			if (i == 0 && arg[i] == '-')
+				continue;
+			if (!(strchr(integers, arg[i])))
+				print_error(ERROR_PUSH, line_number);
 		}
 	}
 	else
