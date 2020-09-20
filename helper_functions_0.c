@@ -100,6 +100,10 @@ void check_to_exec(void)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+		{"nop", nop},
+		{"sub", sub},
+		{"div", div_m},
+		{"mul", mul},
 		{NULL, NULL}
 	};
 

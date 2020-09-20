@@ -27,7 +27,7 @@ void opcode_exec(instruction_t opcodes[])
 }
 
 /**
- * fre_all - executes the opcode
+ * free_all - executes the opcode
  * @free_case: int number with the case to free
  *
  * Return: void
@@ -138,6 +138,21 @@ int print_error_b(int n_error, unsigned int line_number)
 
 	else if (n_error == ERROR_ADD)
 		fprintf(stderr, "L%d: can't add, stack too short\n"
+			, line_number);
+
+	else if (n_error == ERROR_SUB)
+		fprintf(stderr, "L%d: can't sub, stack too short\n"
+			, line_number);
+
+	else if (n_error == ERROR_DIV)
+		fprintf(stderr, "L%d: can't div, stack too short\n"
+			, line_number);
+
+	else if (n_error == ERROR_DIVCERO)
+		fprintf(stderr, "L%d: division by zero\n"
+			, line_number);
+	else if (n_error == ERROR_MUL)
+		fprintf(stderr, "L%d: can't mul, stack too short\n"
 			, line_number);
 	else
 		return (ERROR_NOT_FOUND);

@@ -16,6 +16,10 @@
 #define ERROR_POP 7
 #define ERROR_SWAP 8
 #define ERROR_ADD 9
+#define ERROR_SUB 10
+#define ERROR_DIV 11
+#define ERROR_DIVCERO 12
+#define ERROR_MUL 13
 
 #define STACK_M 0
 #define QUEUE_M 1
@@ -66,6 +70,11 @@ typedef struct instruction_s
  * struct data_s - structure to manage the data in the program
  * @count: keeps count of the number of lines readed
  * @av_1: keeps the name of the file to be interpreted
+ * @stream: keeps the file to be interpreted
+ * @line: keeps the last readed line from @stream
+ * @opcode: keeps first token from @line, usually the opcode
+ * @stack: keeps the Data Structure (double linked list)
+ * @data_format: keeps the data_format (Stack or Queue)
  *
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO Holberton project
@@ -102,6 +111,10 @@ void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void div_m(stack_t **stack, unsigned int line_number);
+void mul(stack_t **stack, unsigned int line_number);
 
 /*----------------*/
 
