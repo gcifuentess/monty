@@ -20,6 +20,9 @@
 #define ERROR_DIV 11
 #define ERROR_DIVCERO 12
 #define ERROR_MUL 13
+#define ERROR_MOD 14
+#define ERROR_PCHAR_STACK 15
+#define ERROR_PCHAR_RANGE 16
 
 #define STACK_M 0
 #define QUEUE_M 1
@@ -99,6 +102,7 @@ void initialize(void);
 void print_error(int n_error, unsigned int line_number);
 int print_error_a(int n_error, unsigned int line_number);
 int print_error_b(int n_error, unsigned int line_number);
+int print_error_c(int n_error, unsigned int line_number);
 void open_file(void);
 void read_line(void);
 void check_to_exec(void);
@@ -115,6 +119,8 @@ void nop(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
 void div_m(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
+void mod_m(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
 
 /*----------------*/
 

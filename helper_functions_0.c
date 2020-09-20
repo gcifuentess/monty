@@ -36,6 +36,9 @@ void print_error(int n_error, unsigned int line_number)
 
 	if (print_error_b(n_error, line_number) == ERROR_FOUND)
 		exit(EXIT_FAILURE);
+
+	if (print_error_c(n_error, line_number) == ERROR_FOUND)
+		exit(EXIT_FAILURE);
 }
 
 /**
@@ -104,6 +107,8 @@ void check_to_exec(void)
 		{"sub", sub},
 		{"div", div_m},
 		{"mul", mul},
+		{"mod_m", mod_m},
+		{"pchar", pchar},
 		{NULL, NULL}
 	};
 

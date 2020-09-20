@@ -15,7 +15,15 @@ void opcode_exec(instruction_t opcodes[])
 	/*checks and runs the opcode*/
 	for (i = 0; opcodes[i].opcode; i++)
 	{
+                /*checks if opcode[] is a comment*/
+		if (program_data->opcode[0] == '#')
+		{
+			/*opcode[6] is the nop opcode function*/
+			opcodes[6].f(&(program_data->stack), line_number);
+			return;
+		}
 		/*compares the readed opcode with those in opcodes structure*/
+                /*or if opcode[] is a comment*/
 		if (strcmp(program_data->opcode, opcodes[i].opcode) == 0)
 		{
 			/*excecute the opcode*/
@@ -151,8 +159,38 @@ int print_error_b(int n_error, unsigned int line_number)
 	else if (n_error == ERROR_DIVCERO)
 		fprintf(stderr, "L%d: division by zero\n"
 			, line_number);
+
 	else if (n_error == ERROR_MUL)
 		fprintf(stderr, "L%d: can't mul, stack too short\n"
+			, line_number);
+
+	else if (n_error == ERROR_MOD)
+		fprintf(stderr, "L%d: can't mod, stack too short\n"
+			, line_number);
+	else
+		return (ERROR_NOT_FOUND);
+
+	free_all(FREE_ALL);
+
+	return (ERROR_FOUND);
+}
+
+/**
+ * print_error_c - prints error messages for the rest of opcodes
+ * @n_error: int error code
+ * @line_number: the number of the line where the error took place
+ *
+ * Return: ERROR_FOUND or ERROR_NOT_FOUND
+ */
+int print_error_c(int n_error, unsigned int line_number)
+{
+
+	if (n_error == ERROR_PCHAR_STACK)
+		fprintf(stderr, "L%d: can't pchar, stack empty\n"
+			, line_number);
+
+	if (n_error == ERROR_PCHAR_RANGE)
+		fprintf(stderr, "L%d: can't pchar, value out of range\n"
 			, line_number);
 	else
 		return (ERROR_NOT_FOUND);
