@@ -189,7 +189,7 @@ int print_error_c(int n_error, unsigned int line_number)
 		fprintf(stderr, "L%d: can't pchar, stack empty\n"
 			, line_number);
 
-	if (n_error == ERROR_PCHAR_RANGE)
+	else if (n_error == ERROR_PCHAR_RANGE)
 		fprintf(stderr, "L%d: can't pchar, value out of range\n"
 			, line_number);
 	else
