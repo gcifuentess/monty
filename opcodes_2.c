@@ -19,7 +19,7 @@ void mod_m(stack_t **stack, unsigned int line_number)
 	if ((*stack)->n == 0)
 		print_error(ERROR_DIVCERO, line_number);
 
-	temp = ((*stack)->next)->n / (*stack)->n;
+	temp = ((*stack)->next)->n % (*stack)->n;
 	((*stack)->next)->n = temp;
 	pop(stack, line_number);
 }

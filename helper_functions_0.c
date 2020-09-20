@@ -107,7 +107,7 @@ void check_to_exec(void)
 		{"sub", sub},
 		{"div", div_m},
 		{"mul", mul},
-		{"mod_m", mod_m},
+		{"mod", mod_m},
 		{"pchar", pchar},
 		{NULL, NULL}
 	};
