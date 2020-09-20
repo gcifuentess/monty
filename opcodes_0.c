@@ -15,9 +15,9 @@ void push(stack_t **stack, unsigned int line_number)
 	const char *integers = "0123456789";
 
 	arg = strtok(NULL, " \t");
-	if (arg)
+	if (arg && arg[0] != '\n')
 	{
-		for (i = 0; arg[i + 1]; i++)
+		for (i = 0; arg[i] && arg[i] != '\n'; i++)
 		{
 			if (i == 0 && arg[i] == '-')
 				continue;

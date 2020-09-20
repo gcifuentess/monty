@@ -27,7 +27,7 @@ void opcode_exec(instruction_t opcodes[])
 }
 
 /**
- * opcode_exec - executes the opcode
+ * fre_all - executes the opcode
  * @free_case: int number with the case to free
  *
  * Return: void
