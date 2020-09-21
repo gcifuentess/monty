@@ -43,3 +43,54 @@ void pchar(stack_t **stack, unsigned int line_number)
 
 	printf("%c\n", (*stack)->n);
 }
+
+/**
+ * pstr - prints the string starting at the top of the stack
+ *        , followed by a new line.
+ *
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void pstr(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+{
+	stack_t *current;
+
+	for (current = *stack; current; current = current->next)
+	{
+		if (current->n < 1 || current->n > 127)
+		{
+			printf("\n");
+			return;
+		}
+		printf("%c", current->n);
+	}
+	printf("\n");
+}
+
+/**
+ * rotl - rotates the stack to the top.
+ *
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void rotl(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+{
+	stack_t *current;
+	int num;
+
+	if (!(*stack) || !((*stack)->next))
+		return;
+
+	num = (*stack)->n;
+
+	for (current = (*stack)->next; current->next; current = current->next)
+		(current->prev)->n = current->n;
+
+	(current->prev)->n = current->n;
+
+	current->n = num;
+}

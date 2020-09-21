@@ -109,6 +109,8 @@ void check_to_exec(void)
 		{"mul", mul},
 		{"mod", mod_m},
 		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
 		{NULL, NULL}
 	};
 
