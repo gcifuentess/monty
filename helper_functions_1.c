@@ -15,15 +15,17 @@ void opcode_exec(instruction_t opcodes[])
 	/*checks and runs the opcode*/
 	for (i = 0; opcodes[i].opcode; i++)
 	{
-                /*checks if opcode[] is a comment*/
+		/*checks if opcode[] is a comment*/
 		if (program_data->opcode[0] == '#')
 		{
 			/*opcode[6] is the nop opcode function*/
 			opcodes[6].f(&(program_data->stack), line_number);
 			return;
 		}
-		/*compares the readed opcode with those in opcodes structure*/
-                /*or if opcode[] is a comment*/
+		/**
+		 * compares the readed opcode with those in opcodes structure
+		 * or if opcode[] is a comment
+		 */
 		if (strcmp(program_data->opcode, opcodes[i].opcode) == 0)
 		{
 			/*excecute the opcode*/

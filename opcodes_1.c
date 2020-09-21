@@ -54,7 +54,7 @@ void sub(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * div - divides the second top element of the stack
+ * div_m - divides the second top element of the stack
  *       by the top element of the stack.stack.
  *
  * @stack: the double linked list with the stack

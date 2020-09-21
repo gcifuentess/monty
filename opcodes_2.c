@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * mod - Computes the rest of the division of the second top
+ * mod_m - Computes the rest of the division of the second top
  *       element of the stack by the top element of the stack.
  *
  * @stack: the double linked list with the stack
