@@ -7,9 +7,8 @@
  *
  * Return: Void
  */
-void push(stack_t **stack, unsigned int line_number)
+void push(__attribute__((unused)) stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
 	char *arg;
 	int i, num;
 	const char *integers = "0123456789";
@@ -31,21 +30,11 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	num = atoi(arg);
 
-	new = malloc(sizeof(stack_t));
-	if (!new)
-		print_error(BAD_MALLOC, line_number);
-	new->n = num;
-	new->prev = NULL;
-	if (!(*stack))
-	{
-		new->next = NULL;
-	}
-	else
-	{
-		new->next = *stack;
-		(*stack)->prev = new;
-	}
-	*stack = new;
+	/*Checks if data_format is stack or queue*/
+	if (program_data->data_format == STACK_M)
+		add_node(num);
+	else if (program_data->data_format == QUEUE_M)
+		add_node_end(num);
 }
 
 /**

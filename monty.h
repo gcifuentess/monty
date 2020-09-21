@@ -109,6 +109,7 @@ void check_to_exec(void);
 void opcode_exec(instruction_t opcodes[]);
 void free_all(int free_case);
 
+
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -123,6 +124,11 @@ void mod_m(stack_t **stack, unsigned int line_number);
 void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
+void stack(stack_t **stack, unsigned int line_number);
+void queue(stack_t **stack, unsigned int line_number);
+void add_node(int element);
+void add_node_end(int element);
 
 /*----------------*/
 

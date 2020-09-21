@@ -94,3 +94,32 @@ void rotl(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 
 	current->n = num;
 }
+
+/**
+ * rotr - rotates the stack to the bottom.
+ *
+ * @stack: the double linked list with the stack
+ * @line_number: the integer to be added to the stack
+ *
+ * Return: Void
+ */
+void rotr(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+{
+	stack_t *current;
+	int num_h, num_act, num_prev;
+
+	if (!(*stack) || !((*stack)->next))
+		return;
+
+	num_h = (*stack)->n;
+	num_prev = num_h;
+
+	for (current = (*stack)->next; current; current = current->next)
+	{
+		num_act = current->n;
+		current->n = num_prev;
+		num_prev = num_act;
+	}
+
+	(*stack)->n = num_prev;
+}

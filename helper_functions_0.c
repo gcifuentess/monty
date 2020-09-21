@@ -110,6 +110,9 @@ void check_to_exec(void)
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"rotl", rotl},
+		{"rotr", rotr},
+		{"stack", stack},
+		{"queue", queue},
 		{NULL, NULL}
 	};
 
