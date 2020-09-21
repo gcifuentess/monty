@@ -94,7 +94,6 @@ int print_error_a(int n_error, unsigned int line_number)
 	else if (n_error == BAD_ARG)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		free_all(FREE_PROGRAM_DATA);
 	}
 	else if (n_error == ERROR_FILE)
 	{

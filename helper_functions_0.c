@@ -30,7 +30,6 @@ void initialize(void)
  */
 void print_error(int n_error, unsigned int line_number)
 {
-
 	if (print_error_a(n_error, line_number) == ERROR_FOUND)
 		exit(EXIT_FAILURE);
 
