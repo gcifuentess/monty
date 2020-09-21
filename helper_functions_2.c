@@ -51,6 +51,6 @@ void add_node_end(int element)
 			     ; actual = actual->next)
 		{}
 		new->prev = actual;
-		actual->next =(program_data->stack)->prev = new;
+		actual->next = (program_data->stack)->prev = new;
 	}
 }
